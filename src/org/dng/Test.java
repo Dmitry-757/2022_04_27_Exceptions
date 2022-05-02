@@ -27,7 +27,9 @@ public class Test {
 
         try {
             System.out.println("Addition matrix1 and matrix2 is:");
-            matrix1.matrixAddition(matrix2).printMatrix();
+            if (matrix1 != null) {
+                matrix1.matrixAddition(matrix2).printMatrix();
+            }
 
         } catch (MatrixException e) {
             System.out.println(e.getMessage());
@@ -40,8 +42,10 @@ public class Test {
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         ) {
             System.out.println("matrix for serialization is");
-            matrix1.printMatrix();
-            objectOutputStream.writeObject(matrix1);
+            if (matrix1 != null) {
+                matrix1.printMatrix();
+                objectOutputStream.writeObject(matrix1);
+            }
             //objectOutputStream.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
