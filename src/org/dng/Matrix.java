@@ -65,9 +65,6 @@ public class Matrix implements Serializable {
 
     /**
      * set value val as element of matrix to position i,j
-     * @param i
-     * @param j
-     * @param val
      * @throws MatrixException - checking the condition for the inclusion of indices in the dimension of the matrix
      */
     public void setMatrixElement(int i, int j, int val) throws MatrixException {
@@ -127,17 +124,23 @@ public class Matrix implements Serializable {
         return matrix;
     }
 
-    public  Matrix matrixAddition(Matrix matrix2) throws MatrixException {
+    public  void matrixAdd( Matrix matrix2) throws MatrixException {
+        matrixAddition(ActionType.ADD, matrix2);
+    }
+    public  void matrixSub(Matrix matrix2) throws MatrixException {
+        matrixAddition(ActionType.SUB, matrix2);
+    }
+
+    public  void matrixAddition(ActionType actionType, Matrix matrix2) throws MatrixException {
         int[][] m1 = matrix;
         int[][] m2 = matrix2.getMatrix();
+        if ((m1.length == 0) || (m2.length == 0)) {
+            throw new MatrixException("Error! Matrix dimensions must be >0 !");
+        }
         //lets compare dimensions of matrix
         if (m1.length != m2.length) {
             throw new MatrixException("Error! Matrix Y-dimensions must be equal!");
         }
-        if ((m1.length == 0) || (m2.length == 0)) {
-            throw new MatrixException("Error! Matrix dimensions must be >0 !");
-        }
-
         for (int i = 0; i < m1.length; i++) {
             if (m1[i].length != m2[i].length) {
                 throw new MatrixException("Error! Matrix X-dimensions must be equal!");
@@ -157,13 +160,11 @@ public class Matrix implements Serializable {
         int[][] arr = new int[y][x];
         for (int i = 0; i < (y); i++) {
             for (int j = 0; j < x; j++) {
-                arr[i][j] = m1[i][j] + m2[i][j];
+                arr[i][j] = m1[i][j] + (actionType == ActionType.ADD ? m2[i][j] : (-m2[i][j]) );
             }
         }
 
-        Matrix res = new Matrix(y,x);
-        res.setMatrix(arr);
-        return res;
+        setMatrix(arr);
     }
 
     //determinant calculation built using regression - so, need to make two methods
@@ -199,6 +200,8 @@ public class Matrix implements Serializable {
         return rez;
     }
 
-
+enum ActionType{
+    ADD, SUB
+}
 
 }
