@@ -4,36 +4,36 @@ import java.io.Serializable;
 
 
 /**
- 1. Написать класс «Матрица». Данный класс реализует функционал математического объекта «матрица».
- Обязательные поля класса:
-  элементы матрицы – двумерный массив
-  кол-во строк/кол-во столбцов – целочисленные значения
-
- Обязательные методы класса:
-  конструкторы
-  деструктор
-  сеттеры/геттеры
-  метод получения/установки элемента матрицы aij, где i – номер строки, j – номер столбца
-  метод заполнения матрицы случайными значениями
-  сложение/вычитание двух матриц (поэлементно)
-
- Бонусные методы (реализация не обязательная, по желанию, продвинутый уровень):
-  умножение матрицы на матрицу
-  вычисление определителя матрицы
-  метод записи матрицы в файл
-  метод чтения матрицы из файла
-
- 2. При разработке класса «Матрица» выполнять обработку исключительных ситуаций:
-  при вводе/вывод, выделении памяти, доступах к элементам и т.д.
-  сделать новый класс собственного исключения MatrixException, наследника Exception, и использовать его для обработки
-  исключительных ситуаций при работе с матрицами (получение элемента, создание матрицы, операции с матрицами) –
-  пример исключительных ситуаций, требующих обработки – получение/установка элемента по несуществующему индексу,
-  сложение матриц разной размерности и т.д.
-
- 3. Протестировать данный класс используя вызовы методов. Можно написать собственный CLI (command line interface)
-  простого калькулятора матриц.
+ * 1. Написать класс «Матрица». Данный класс реализует функционал математического объекта «матрица».
+ * Обязательные поля класса:
+ * элементы матрицы – двумерный массив
+ * кол-во строк/кол-во столбцов – целочисленные значения
+ * <p>
+ * Обязательные методы класса:
+ * конструкторы
+ * деструктор
+ * сеттеры/геттеры
+ * метод получения/установки элемента матрицы aij, где i – номер строки, j – номер столбца
+ * метод заполнения матрицы случайными значениями
+ * сложение/вычитание двух матриц (поэлементно)
+ * <p>
+ * Бонусные методы (реализация не обязательная, по желанию, продвинутый уровень):
+ * умножение матрицы на матрицу
+ * вычисление определителя матрицы
+ * метод записи матрицы в файл
+ * метод чтения матрицы из файла
+ * <p>
+ * 2. При разработке класса «Матрица» выполнять обработку исключительных ситуаций:
+ * при вводе/вывод, выделении памяти, доступах к элементам и т.д.
+ * сделать новый класс собственного исключения MatrixException, наследника Exception, и использовать его для обработки
+ * исключительных ситуаций при работе с матрицами (получение элемента, создание матрицы, операции с матрицами) –
+ * пример исключительных ситуаций, требующих обработки – получение/установка элемента по несуществующему индексу,
+ * сложение матриц разной размерности и т.д.
+ * <p>
+ * 3. Протестировать данный класс используя вызовы методов. Можно написать собственный CLI (command line interface)
+ * простого калькулятора матриц.
  */
-class MatrixException extends Exception{
+class MatrixException extends Exception {
     public MatrixException(String message) {
         super(message);
     }
@@ -65,10 +65,11 @@ public class Matrix implements Serializable {
 
     /**
      * set value val as element of matrix to position i,j
+     *
      * @throws MatrixException - checking the condition for the inclusion of indices in the dimension of the matrix
      */
     public void setMatrixElement(int i, int j, int val) throws MatrixException {
-        if((matrix.length<=i)||(matrix[0].length)<=j)
+        if ((matrix.length <= i) || (matrix[0].length) <= j)
             //throw new ArrayIndexOutOfBoundsException("dimension of the matrix is violated! Index out of range!");
             throw new MatrixException("dimension of the matrix is violated! Index out of range!");
 
@@ -109,6 +110,7 @@ public class Matrix implements Serializable {
         }
 
     }
+
     public static int[][] createRandomMatrix(int dimY, int dimX, int rndRange) throws MatrixException {
         if ((dimY < 1) || (dimX < 1)) {
 //            throw new IllegalArgumentException("Wrong matrix dimension!");
@@ -124,14 +126,15 @@ public class Matrix implements Serializable {
         return matrix;
     }
 
-    public  void matrixAdd( Matrix matrix2) throws MatrixException {
+    public void matrixAdd(Matrix matrix2) throws MatrixException {
         matrixAddition(ActionType.ADD, matrix2);
     }
-    public  void matrixSub(Matrix matrix2) throws MatrixException {
+
+    public void matrixSub(Matrix matrix2) throws MatrixException {
         matrixAddition(ActionType.SUB, matrix2);
     }
 
-    public  void matrixAddition(ActionType actionType, Matrix matrix2) throws MatrixException {
+    public void matrixAddition(ActionType actionType, Matrix matrix2) throws MatrixException {
         int[][] m1 = matrix;
         int[][] m2 = matrix2.getMatrix();
         if ((m1.length == 0) || (m2.length == 0)) {
@@ -160,7 +163,7 @@ public class Matrix implements Serializable {
         int[][] arr = new int[y][x];
         for (int i = 0; i < (y); i++) {
             for (int j = 0; j < x; j++) {
-                arr[i][j] = m1[i][j] + (actionType == ActionType.ADD ? m2[i][j] : (-m2[i][j]) );
+                arr[i][j] = m1[i][j] + (actionType == ActionType.ADD ? m2[i][j] : (-m2[i][j]));
             }
         }
 
@@ -200,8 +203,8 @@ public class Matrix implements Serializable {
         return rez;
     }
 
-enum ActionType{
-    ADD, SUB
-}
+    enum ActionType {
+        ADD, SUB
+    }
 
 }

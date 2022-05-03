@@ -27,7 +27,7 @@ public class Test {
             matrix1.printMatrix();
 
             System.out.println();
-            System.out.println("determinant of matrix is: "+matrix1.getDet());
+            System.out.println("determinant of matrix is: " + matrix1.getDet());
             System.out.println();
 
         } catch (MatrixException e) {
@@ -39,8 +39,7 @@ public class Test {
         try (
                 FileOutputStream fileOutputStream = new FileOutputStream("d:\\matrix.ser");
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
-        )
-        {
+        ) {
             System.out.println("matrix for serialization is");
             if (matrix1 != null) {
                 matrix1.printMatrix();
@@ -53,7 +52,7 @@ public class Test {
 
         //** now lets try to deserialize matrix.ser to instance of Matrix
         try (
-                FileInputStream fileInputStream  = new FileInputStream("d:\\matrix.ser");
+                FileInputStream fileInputStream = new FileInputStream("d:\\matrix.ser");
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)
         ) {
             Matrix matrixDeSer = (Matrix) objectInputStream.readObject();
