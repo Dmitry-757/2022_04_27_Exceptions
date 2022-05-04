@@ -36,15 +36,22 @@ public class Test {
 
 
         //** lets try to serialize our instance of Matrix
-        matrix1.serialize();
+        try {
+            if (matrix1 != null) {
+                matrix1.serialize();
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
 
         //** now lets try to deserialize matrix.ser to instance of Matrix
         Matrix matrix3 = null;
         try {
             matrix3 = new Matrix(3,3);
             matrix3.deSerialize();
-        } catch (MatrixException e) {
-            System.out.println(e.getMessage());;
+        } catch (MatrixException | ClassNotFoundException | IOException e) {
+            System.out.println(e.getMessage());
         }
 
     }

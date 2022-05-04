@@ -203,36 +203,23 @@ public class Matrix implements Serializable {
         return rez;
     }
 
-    public void serialize(){
+    public void serialize() throws IOException {
         //** lets try to serialize our instance of Matrix
-        try (
-                FileOutputStream fileOutputStream = new FileOutputStream(System.getProperty("user.dir")+"\\matrix.ser");
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
-        )
-        {
-                System.out.println("matrix for serialization is: ");
-                printMatrix();
-                objectOutputStream.writeObject(this);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        FileOutputStream fileOutputStream = new FileOutputStream(System.getProperty("user.dir") + "\\matrix.ser");
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        System.out.println("matrix for serialization is: ");
+        printMatrix();
+        objectOutputStream.writeObject(this);
     }
 
-    public void deSerialize(){
+    public void deSerialize() throws IOException, ClassNotFoundException {
         //** now lets try to deserialize matrix.ser to instance of Matrix
-        try (
-                FileInputStream fileInputStream = new FileInputStream(System.getProperty("user.dir")+"\\matrix.ser");
-
-                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)
-        )
-        {
-            Matrix matrixDeSer = (Matrix) objectInputStream.readObject();
-            setMatrix(matrixDeSer.getMatrixAsArr());
-            System.out.println("DeSerialized matrix is");
-            printMatrix();
-        } catch (ClassNotFoundException | IOException e) {
-            System.out.println(e.getMessage());
-        }
+        FileInputStream fileInputStream = new FileInputStream(System.getProperty("user.dir") + "\\matrix.ser");
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        Matrix matrixDeSer = (Matrix) objectInputStream.readObject();
+        setMatrix(matrixDeSer.getMatrixAsArr());
+        System.out.println("DeSerialized matrix is");
+        printMatrix();
     }
 
     enum ActionType {
