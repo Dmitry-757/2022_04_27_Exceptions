@@ -1,6 +1,6 @@
 package org.dng;
 
-import java.io.Serializable;
+import java.io.*;
 
 
 /**
@@ -76,7 +76,7 @@ public class Matrix implements Serializable {
         this.matrix[i][j] = val;
     }
 
-    public int[][] getMatrix() {
+    public int[][] getMatrixAsArr() {
         return matrix;
     }
 
@@ -136,7 +136,7 @@ public class Matrix implements Serializable {
 
     public void matrixAddition(ActionType actionType, Matrix matrix2) throws MatrixException {
         int[][] m1 = matrix;
-        int[][] m2 = matrix2.getMatrix();
+        int[][] m2 = matrix2.getMatrixAsArr();
         if ((m1.length == 0) || (m2.length == 0)) {
             throw new MatrixException("Error! Matrix dimensions must be >0 !");
         }
@@ -201,6 +201,38 @@ public class Matrix implements Serializable {
             rez += (int) Math.pow((-1), (1 + y + 1)) * a * det(minor);
         }
         return rez;
+    }
+
+    public void serialize(){
+        //** lets try to serialize our instance of Matrix
+        try (
+                FileOutputStream fileOutputStream = new FileOutputStream(System.getProperty("user.dir")+"\\matrix.ser");
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
+        )
+        {
+                System.out.println("matrix for serialization is: ");
+                printMatrix();
+                objectOutputStream.writeObject(this);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deSerialize(){
+        //** now lets try to deserialize matrix.ser to instance of Matrix
+        try (
+                FileInputStream fileInputStream = new FileInputStream(System.getProperty("user.dir")+"\\matrix.ser");
+
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)
+        )
+        {
+            Matrix matrixDeSer = (Matrix) objectInputStream.readObject();
+            setMatrix(matrixDeSer.getMatrixAsArr());
+            System.out.println("DeSerialized matrix is");
+            printMatrix();
+        } catch (ClassNotFoundException | IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     enum ActionType {
