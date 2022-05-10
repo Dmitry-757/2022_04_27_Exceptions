@@ -115,7 +115,7 @@ public class Matrix implements Serializable {
 
         if ((dimY < 1) || (dimX < 1)) {
 //            throw new IllegalArgumentException("Wrong matrix dimension!");
-            throw new MatrixException("dimension of the matrix is violated! Index out of range!");
+            throw new MatrixException("Creation of matrix failed! dimension of the matrix is violated! Index out of range!");
         }
         int[][] matrix = new int[dimY][dimX];
         for (int i = 0; i < dimY; i++) {
