@@ -52,7 +52,7 @@ public class Matrix implements Serializable {
             this.xDimension = xDimension;
             this.matrix = createRandomMatrix(yDimension, xDimension, 100);
         } catch (MatrixException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             throw new MatrixException(e.getMessage()); //and pass exception up
         }
     }
@@ -112,10 +112,10 @@ public class Matrix implements Serializable {
     }
 
     public static int[][] createRandomMatrix(int dimY, int dimX, int rndRange) throws MatrixException {
+
         if ((dimY < 1) || (dimX < 1)) {
 //            throw new IllegalArgumentException("Wrong matrix dimension!");
             throw new MatrixException("dimension of the matrix is violated! Index out of range!");
-
         }
         int[][] matrix = new int[dimY][dimX];
         for (int i = 0; i < dimY; i++) {

@@ -5,9 +5,21 @@ import java.io.*;
 public class Test {
     public static void main(String[] args) {
         Matrix matrix1 = null, matrix2 = null, matrix3 = null;
+
+        try {
+            matrix1 = new Matrix(0, 3);
+            matrix1.fillMatrixRandom();
+            System.out.println("Matrix1 is: ");
+            matrix1.printMatrix();
+            System.out.println();
+        } catch (MatrixException e) {
+            System.out.println(e.getMessage());
+        }
+
         try {
             matrix1 = new Matrix(3, 3);
             matrix1.fillMatrixRandom();
+            System.out.println();
             System.out.println("Matrix1 is: ");
             matrix1.printMatrix();
             System.out.println();
@@ -48,6 +60,9 @@ public class Test {
         } catch (MatrixException e) {
             System.out.println(e.getMessage());
         }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         try{
             System.out.println();
@@ -55,6 +70,9 @@ public class Test {
             System.out.println("the determinant is " + matrix3.getDet());
             System.out.println();
         } catch (MatrixException e) {
+            System.out.println(e.getMessage());
+        }
+        catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
